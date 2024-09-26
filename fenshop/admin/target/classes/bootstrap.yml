@@ -1,0 +1,16 @@
+server:
+  port: 8081
+spring:
+  application:
+    name: admin
+  cloud:
+    nacos:
+      config:
+        server-addr: 192.168.31.128:8848
+        prefix: cxl
+        file-extension: yml
+  profiles:
+    active: datasource,register,upload,rabbitmq,feign
+  redis:
+    port: 6379
+    host: 192.168.31.128

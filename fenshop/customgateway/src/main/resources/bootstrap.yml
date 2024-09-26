@@ -1,0 +1,39 @@
+server:
+  port: 8091
+spring:
+  application:
+    name: customgateway
+  profiles:
+    active: register,redis
+  cloud:
+    nacos:
+      config:
+        server-addr: 192.168.31.128:8848
+        prefix: cxl
+        file-extension: yml
+    gateway:
+      enabled: true
+      discovery:
+        locator:
+          lower-case-service-id: true
+      routes:
+        - id: product
+          uri: lb://product
+          predicates:
+            - Path=/pmsBrand/**,/pmsCategory/**,/pmsAttr/**,/pmsGood/**,/pmsSkuStock/**,/omsCart/**,/omsOrder/**,/omsOrderItem/**
+        - id: admin
+          uri: lb://admin
+          predicates:
+            - Path=/umsCustomer/**
+      globalcors:
+        cors-configurations:
+          '[/**]':
+            allowedOrigins:
+              - "http://localhost:81"
+              - "http://127.0.0.1:81"
+            allowedMethods: "*"
+            allowedHeaders: "*"
+  auth:
+    urls:
+      - /omsCart/**
+      - /omsOrder/**

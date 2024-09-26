@@ -1,0 +1,36 @@
+server:
+  port: 8090
+spring:
+  application:
+    name: backgateway
+  profiles:
+    active: register,redis
+  cloud:
+    nacos:
+      config:
+        server-addr: 192.168.31.128:8848
+        prefix: cxl
+        file-extension: yml
+    gateway:
+      enabled: true
+      discovery:
+        locator:
+          lower-case-service-id: true
+      routes:
+        - id: admin
+          uri: lb://admin
+          predicates:
+            - Path=/umsAdmin/**,/umsRole/**,/umsRoleAdmin/**,/umsResource/**,/umsRoleResource/**
+        - id: product
+          uri: lb://product
+          predicates:
+            - Path=/pmsBrand/**,/pmsCategory/**,/pmsAttr/**,/pmsGood/**,/pmsSkuStock/**
+      globalcors:
+        cors-configurations:
+          '[/**]':
+            allowedOrigins:
+              - "http://localhost"
+              - "http://127.0.0.1"
+            allowedMethods: "*"
+            allowedHeaders: "*"
+
