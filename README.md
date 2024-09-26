@@ -1,2 +1,4 @@
 这是一个集成了Nacos+minio+OpenFeign+RabbitMq+Redis+ES,基于分布式的电商管理系统
-fenshop为java后端服务，shopadmin是管理员管理后台的一个前端UI，moblie是用户使用手机的一个h5页面UI
+fenshop为java后端服务
+shopadmin是管理员管理后台的一个前端UI
+moblie是用户使用手机的一个h5页面UI
